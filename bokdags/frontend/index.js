@@ -1,4 +1,4 @@
-const API_URL = "https://bokdags.onrender.com";
+const API_URL = "https://artistic-hero-019f59ea0e.strapiapp.com/admin";
 const API = `${API_URL}/api`;
 
 let books = [];
