@@ -197,8 +197,17 @@ function setupNav() {
   const navBtn = document.getElementById("navBtn");
   const openLogin = document.getElementById("openLogin");
 
-  if (openLogin && currentUser) {
-    openLogin.style.display = "none";
+  if (openLogin) {
+    openLogin.style.display = "inline-block";
+    openLogin.textContent = currentUser ? "Logga ut" : "Logga in";
+
+    openLogin.onclick = () => {
+      if (currentUser) {
+        logout();
+      } else {
+        document.getElementById("overlay")?.classList.add("open");
+      }
+    };
   }
 
   if (navBtn) {
