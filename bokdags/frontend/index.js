@@ -732,15 +732,15 @@ async function addBookFromAdmin() {
       body: formData,
     });
 
-    const uploadData = await uploadRes.json();
+    const uploadData = await uploadRes.json().catch(() => null);
 
     if (!uploadRes.ok) {
       console.log("UPLOAD ERROR:", uploadData);
-      showError("Kunde inte ladda upp bilden.");
+      showError(uploadData?.error?.message || "Kunde inte ladda upp bilden.");
       return;
     }
 
-    coverId = uploadData[0].id;
+    coverId = uploadData[0]?.id;
   }
 
   const res = await fetch(`${API}/books`, {
@@ -757,11 +757,11 @@ async function addBookFromAdmin() {
     }),
   });
 
-  const data = await res.json();
+  const data = await res.json().catch(() => null);
 
   if (!res.ok) {
     console.log("ADD BOOK ERROR:", data);
-    showError("Kunde inte skapa boken.");
+    showError(data?.error?.message || "Kunde inte skapa boken.");
     return;
   }
 
