@@ -280,7 +280,6 @@ function renderBooks() {
 
   if (!bookGrid) return;
 
-  const isAdminPage = window.location.pathname.includes("admin.html");
   const searchValue = document.getElementById("searchInput")?.value.toLowerCase() || "";
 
   let filteredBooks = books.filter((book) => {
@@ -313,6 +312,7 @@ function renderBooks() {
 
     const card = document.createElement("article");
     card.className = "book-card";
+    card.onclick = () => openBookModal(book.documentId);
 
     card.innerHTML = `
       ${
@@ -329,29 +329,8 @@ function renderBooks() {
         <p>${book.pages || "?"} sidor</p>
         <p>Utgiven: ${book.publishedDate || "Okänt"}</p>
         <p class="book-stars">★ ${avg}${avg !== "Inget betyg" ? "/10" : ""}</p>
-
-        ${
-          isAdminPage
-            ? `<button class="btn-full delete-btn" data-delete-id="${book.documentId}">
-                 Ta bort
-               </button>`
-            : ""
-        }
       </div>
     `;
-
-    card.addEventListener("click", () => {
-      openBookModal(book.documentId);
-    });
-
-    const deleteBtn = card.querySelector(".delete-btn");
-
-    if (deleteBtn) {
-      deleteBtn.addEventListener("click", (event) => {
-        event.stopPropagation();
-        deleteBook(deleteBtn.dataset.deleteId);
-      });
-    }
 
     bookGrid.appendChild(card);
   });
@@ -866,31 +845,4 @@ function showAdminLink() {
   if (!adminLink) return;
 
   adminLink.style.display = currentUser?.admin === true ? "inline-block" : "none";
-}
-
-async function deleteBook(bookDocumentId) {
-  if (!token) {
-    showError("Du måste vara inloggad som admin.");
-    return;
-  }
-
-  const confirmDelete = confirm("Är du säker på att du vill ta bort boken?");
-
-  if (!confirmDelete) return;
-
-  const res = await fetch(`${API}/books/${bookDocumentId}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
-
-  const data = await res.json().catch(() => null);
-
-  if (!res.ok) {
-    console.log("DELETE BOOK ERROR:", data);
-    showError(data?.error?.message || "Kunde inte ta bort boken.");
-    return;
-  }
-
-  alert("Boken togs bort.");
-  await fetchBooks();
 }
