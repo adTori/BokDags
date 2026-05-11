@@ -977,12 +977,3 @@ select {
   padding: 0;
   background: transparent;
 }
-
-.delete-btn {
-  margin-top: 1rem;
-  background: #8f3f3f;
-}
-
-.delete-btn:hover {
-  background: #6f2f2f;
-}
