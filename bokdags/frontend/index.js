@@ -354,10 +354,10 @@ function openBookModal(documentId) {
 
     ${
       coverUrl
-        ? `<img src="${coverUrl}" alt="${book.title}">`
-        : `<div class="book-cover placeholder-cover">
-            <img src="BokDags.png" alt="BokDags">
-          </div>`
+        ? `<img src="${coverUrl}" alt="${book.title}" class="modal-cover">`
+        : `<div class="modal-cover-placeholder">
+             <img src="BokDags.png" alt="BokDags">
+           </div>`
     }
 
     <h2>${book.title}</h2>

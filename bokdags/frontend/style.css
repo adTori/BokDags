@@ -926,3 +926,54 @@ select {
 .book-modal .btn-full {
   border-radius: 8px;
 }
+
+/* ── Same modal cover style for books without images ───────────── */
+
+.book-modal .modal-cover-placeholder {
+  width: 180px;
+  height: 260px;
+  border-radius: 8px;
+  background: var(--tab-active);
+  padding: 0.5rem;
+  align-self: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-modal .modal-cover-placeholder img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  padding: 0;
+  background: transparent;
+}
+
+.book-modal .modal-cover,
+.book-modal .modal-cover-placeholder {
+  width: 180px;
+  height: 260px;
+  border-radius: 8px;
+  background: var(--tab-active);
+  padding: 0.5rem;
+  align-self: center;
+}
+
+.book-modal .modal-cover {
+  object-fit: contain;
+}
+
+.book-modal .modal-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-modal .modal-cover-placeholder img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  padding: 0;
+  background: transparent;
+}
