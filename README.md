@@ -9,7 +9,10 @@ Users can:
 * save books to their profile
 * rate books
 * view average ratings
+
+Admin can:
 * switch between different themes
+* upload books
 
 The project is deployed with:
 
