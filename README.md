@@ -1,17 +1,17 @@
 # 📚 BokDags
 
-BokDags är en modern bokplattform byggd med HTML, CSS, JavaScript och Strapi CMS.
+BokDags is a modern book platform built with HTML, CSS, JavaScript, and Strapi CMS.
 
-Användare kan:
+Users can:
 
-* skapa konto och logga in
-* bläddra bland böcker
-* spara böcker till sin profil
-* betygsätta böcker
-* se genomsnittliga betyg
-* använda olika teman
+* create accounts and log in
+* browse books
+* save books to their profile
+* rate books
+* view average ratings
+* switch between different themes
 
-Projektet är deployat med:
+The project is deployed with:
 
 * Frontend: Vercel
 * Backend/CMS: Strapi Cloud
@@ -30,58 +30,58 @@ Backend:
 
 ---
 
-# ✨ Funktioner
+# ✨ Features
 
-## 👤 Autentisering
+## 👤 Authentication
 
-* Registrering
-* Inloggning
-* JWT-baserad autentisering via Strapi
-* Skyddad admin-sida
+* User registration
+* Login system
+* JWT-based authentication via Strapi
+* Protected admin page
 
-## 📚 Böcker
+## 📚 Books
 
-* Visa alla böcker
-* Sök efter titel eller författare
-* Sortera efter:
+* Display all books
+* Search by title or author
+* Sort books by:
 
-  * senaste
-  * högst betyg
-* Modal för bokdetaljer
+  * newest
+  * highest rated
+* Book detail modal
 
-## ⭐ Betygssystem
+## ⭐ Rating System
 
-* Användare kan ge böcker betyg mellan 1–10
-* Genomsnittligt betyg visas för varje bok
-* Uppdateras dynamiskt från backend
+* Users can rate books from 1–10
+* Average ratings are displayed for every book
+* Ratings update dynamically from the backend
 
-## 💾 Sparade böcker
+## 💾 Saved Books
 
-* Spara böcker till “Att läsa”
-* Personlig profilsida
-* Visa sparade böcker och tidigare betyg
+* Save books to a personal “Want to Read” list
+* Personal profile page
+* View saved books and previous ratings
 
-## 🎨 Teman
+## 🎨 Themes
 
-Tre olika teman:
+Three different themes:
 
 * Light
 * Ocean
 * Nature
 
-Teman kan ändras av admin.
+Themes can be changed by the admin.
 
-## 🛠 Adminfunktioner
+## 🛠 Admin Features
 
-Admin kan:
+Admins can:
 
-* lägga till böcker
-* ladda upp bokomslag
-* hantera innehåll via Strapi CMS
+* add books
+* upload book covers
+* manage content through Strapi CMS
 
 ---
 
-# 🧱 Teknologier
+# 🧱 Technologies
 
 ## Frontend
 
@@ -103,7 +103,7 @@ Admin kan:
 
 ---
 
-# 📂 Projektstruktur
+# 📂 Project Structure
 
 ```txt
 bokdags/
@@ -128,37 +128,37 @@ bokdags/
 
 ---
 
-# ⚙️ Installation lokalt
+# ⚙️ Local Installation
 
-## 1. Klona repot
+## 1. Clone the repository
 
 ```bash
-git clone https://github.com/ditt-användarnamn/bokdags.git
+git clone https://github.com/your-username/bokdags.git
 ```
 
 ---
 
-## 2. Starta frontend
+## 2. Start the frontend
 
-Öppna frontend-mappen i VS Code och använd exempelvis Live Server.
+Open the frontend folder in VS Code and run it using Live Server or a similar extension.
 
 ---
 
-## 3. Starta backend
+## 3. Start the backend
 
-Gå till backend-mappen:
+Navigate to the backend folder:
 
 ```bash
 cd backend
 ```
 
-Installera dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Starta Strapi:
+Start Strapi:
 
 ```bash
 npm run develop
@@ -168,7 +168,7 @@ npm run develop
 
 # 🔐 Environment Variables
 
-Backend använder följande environment variables:
+The backend uses the following environment variables:
 
 ```env
 APP_KEYS=
@@ -181,6 +181,7 @@ JWT_SECRET=
 ---
 
 # 📸 Screenshots
+
 
 <img width="1904" height="994" alt="Skärmbild 2026-05-09 141653" src="https://github.com/user-attachments/assets/afdcd819-fd22-4f73-b288-8327a2464df4" />
 <img width="1902" height="994" alt="Skärmbild 2026-05-09 141714" src="https://github.com/user-attachments/assets/d660e480-7235-4a41-9ee0-a32d043bf9dc" />
@@ -195,15 +196,15 @@ JWT_SECRET=
 
 ## Frontend
 
-Deployad med Vercel.
+Deployed with Vercel.
 
 ## Backend
 
-Deployad med Strapi Cloud.
+Deployed with Strapi Cloud.
 
 ---
 
-# 👩‍💻 Skapad av
+# 👩‍💻 Created By
 
 Victoria Friberg
 
