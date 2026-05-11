@@ -329,7 +329,14 @@ function renderBooks() {
         <p>${book.pages || "?"} sidor</p>
         <p>Utgiven: ${book.publishedDate || "Okänt"}</p>
         <p class="book-stars">★ ${avg}${avg !== "Inget betyg" ? "/10" : ""}</p>
-      </div>
+        ${
+          window.location.pathname.includes("admin.html")
+            ? `<button class="btn-full delete-btn" onclick="event.stopPropagation(); deleteBook('${book.documentId}')">
+                Ta bort
+              </button>`
+            : ""
+        }
+        </div>
     `;
 
     bookGrid.appendChild(card);
@@ -845,4 +852,31 @@ function showAdminLink() {
   if (!adminLink) return;
 
   adminLink.style.display = currentUser?.admin === true ? "inline-block" : "none";
+}
+
+async function deleteBook(bookDocumentId) {
+  if (!token) {
+    showError("Du måste vara inloggad som admin.");
+    return;
+  }
+
+  const confirmDelete = confirm("Är du säker på att du vill ta bort boken?");
+
+  if (!confirmDelete) return;
+
+  const res = await fetch(`${API}/books/${bookDocumentId}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  });
+
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    console.log("DELETE BOOK ERROR:", data);
+    showError(data?.error?.message || "Kunde inte ta bort boken.");
+    return;
+  }
+
+  alert("Boken togs bort.");
+  await fetchBooks();
 }
