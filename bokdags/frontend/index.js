@@ -51,12 +51,24 @@ function showError(message) {
 }
 
 function getCoverUrl(book) {
-  if (book?.cover?.url) {
+  if (!book || !book.cover) return "";
+
+  if (book.cover.url) {
+    if (book.cover.url.startsWith("http")) {
+      return book.cover.url;
+    }
+
     return `${API_URL}${book.cover.url}`;
   }
 
-  if (book?.cover?.data?.attributes?.url) {
-    return `${API_URL}${book.cover.data.attributes.url}`;
+  if (book.cover.data?.attributes?.url) {
+    const url = book.cover.data.attributes.url;
+
+    if (url.startsWith("http")) {
+      return url;
+    }
+
+    return `${API_URL}${url}`;
   }
 
   return "";
