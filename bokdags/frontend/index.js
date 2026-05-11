@@ -280,6 +280,7 @@ function renderBooks() {
 
   if (!bookGrid) return;
 
+  const isAdminPage = window.location.pathname.includes("admin.html");
   const searchValue = document.getElementById("searchInput")?.value.toLowerCase() || "";
 
   let filteredBooks = books.filter((book) => {
@@ -312,16 +313,15 @@ function renderBooks() {
 
     const card = document.createElement("article");
     card.className = "book-card";
-    card.onclick = () => openBookModal(book.documentId);
 
     card.innerHTML = `
-      ${coverUrl
-        ? `<img src="${coverUrl}" alt="${book.title}" class="book-cover">`
-        : `<div class="book-cover placeholder-cover">
-           <img src="BokDags.png" alt="BokDags">
-         </div>`
-  }
-
+      ${
+        coverUrl
+          ? `<img src="${coverUrl}" alt="${book.title}" class="book-cover">`
+          : `<div class="book-cover placeholder-cover">
+               <img src="BokDags.png" alt="BokDags">
+             </div>`
+      }
 
       <div class="book-info">
         <h2 class="book-title">${book.title}</h2>
@@ -329,15 +329,29 @@ function renderBooks() {
         <p>${book.pages || "?"} sidor</p>
         <p>Utgiven: ${book.publishedDate || "Okänt"}</p>
         <p class="book-stars">★ ${avg}${avg !== "Inget betyg" ? "/10" : ""}</p>
+
         ${
-          window.location.pathname.includes("admin.html")
-            ? `<button class="btn-full delete-btn" onclick="event.stopPropagation(); deleteBook('${book.documentId}')">
-                Ta bort
-              </button>`
+          isAdminPage
+            ? `<button class="btn-full delete-btn" data-delete-id="${book.documentId}">
+                 Ta bort
+               </button>`
             : ""
         }
-        </div>
+      </div>
     `;
+
+    card.addEventListener("click", () => {
+      openBookModal(book.documentId);
+    });
+
+    const deleteBtn = card.querySelector(".delete-btn");
+
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        deleteBook(deleteBtn.dataset.deleteId);
+      });
+    }
 
     bookGrid.appendChild(card);
   });
