@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BokDags - Profil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+</head>
+
+<body>
+
+  <nav>
+    <a href="./home.html">
+      <img src="BokDags.png" alt="BokDags" width="80px">
+    </a>
+
+    <div class="nav-actions">
+      <a href="./home.html" class="btn-secondary">Tillbaka</a>
+      <button class="btn-primary" id="navBtn">Logga ut</button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1>Min profil</h1>
+      <p>Hej <span id="usernameDisplay"></span>! Här ser du dina sparade och betygsatta böcker.</p>
+    </section>
+
+      <section class="profile-section">
+      <h2>Böcker jag vill läsa</h2>
+
+      <div class="sort-group profile-sort">
+        <button class="sort-btn active" onclick="setProfileSavedSort('title', this)">Titel</button>
+        <button class="sort-btn" onclick="setProfileSavedSort('author', this)">Författare</button>
+      </div>
+
+      <div class="profile-grid" id="savedBooks"></div>
+    </section>
+
+    <section class="profile-section">
+      <h2>Böcker jag har betygsatt</h2>
+    
+      <div class="sort-group profile-sort">
+        <button class="sort-btn active" onclick="setProfileRatingSort('rating', this)">Betyg</button>
+        <button class="sort-btn" onclick="setProfileRatingSort('title', this)">Titel</button>
+        <button class="sort-btn" onclick="setProfileRatingSort('author', this)">Författare</button>
+      </div>
+    
+      <div class="profile-grid" id="recentRatings"></div>
+    </section>
+
+
+  </main>
+<br><br><br><br>
+<footer class="site-footer">
+  <p>© Victoria Friberg 2026</p>
+</footer>
+</body>
+</html>

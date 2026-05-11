@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BokDags</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a href="./home.html">
+      <!-- <span class="logo-icon">📖</span> -->
+      <img src="BokDags.png" alt="BokDags" width="80px">
+    </a>
+    <button class="btn-primary" id="navBtn">Logga ut</button>
+  </nav>
+
+  <!-- ── Main catalog ── -->
+  <main>
+    <section class="hero">
+      <!-- OBS skapa funktion för att se vem som är inloggad. -->
+      <h1>Hej admin!</h1>
+      <p>Här kan du byta tema på webbplatsen och lägga till fler böcker</p>
+      <br><br>
+      <button class="change-btn" id="themeLight">Light</button>
+      <button class="change-btn" id="themeOcean">Ocean</button>
+      <button class="change-btn" id="themeNature">Nature</button>
+    </section>
+
+    <div class="toolbar">
+      <div class="book-form">
+        <input type="text" id="adminTitle" placeholder="Titel" />
+        <input type="text" id="adminAuthor" placeholder="Författare" />
+        <input type="number" id="adminPages" placeholder="Antal sidor" />
+        <input type="date" id="adminPublishedDate" />
+        <input type="file" id="adminCover" accept="image/*" />
+      </div>
+    </div>
+
+    <button class="add-btn" id="addBookBtn">Lägg till</button>
+    <br><br><br>
+    <div class="book-grid" id="bookGrid"></div>
+    <p class="empty" id="emptyMsg">Inga böcker än. Lägg till böcker.</p>
+  </main>
+
+<br><br><br><br>
+<footer class="site-footer">
+  <p>© Victoria Friberg 2026</p>
+</footer>
+</body>
+
+</html>

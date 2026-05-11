@@ -1,0 +1,856 @@
+/* ── Reset & Variables ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #eef3ed;
+  --surface: #f8fbf7;
+  --border: #d6e2d3;
+
+  --brown: #355c4b;
+  --brown-mid: #28473a;
+
+  --gold: #7ba05b;
+
+  --text: #1f2e27;
+  --muted: #6c7b73;
+
+  --tab-active: #e3ede1;
+  --tab-hover: #d9e7d7;
+
+  --radius: 12px;
+
+  --shadow: 0 4px 24px rgba(53, 92, 75, 0.10);
+}
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Nav ────────────────────────────────────────────────────────── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 64px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: .01em;
+}
+
+.logo-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.btn-primary, .btn-secondary {
+  background: var(--brown);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: .55rem 1.35rem;
+  font-family: 'Lora', serif;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: background .18s;
+}
+.btn-primary:hover { background: var(--brown-mid); }
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+}
+
+.hero p {
+  margin-top: .85rem;
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+/* ── Search + Sort ──────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  padding: 1.25rem 1.5rem 2.5rem;
+  flex-wrap: wrap;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 0 1 460px;
+}
+
+.search-wrap input, #adminInput {
+  width: 90%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: 'Lora', serif;
+  font-size: .95rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+}
+.search-wrap input::placeholder { color: var(--muted); }
+.search-wrap input:focus {
+  border-color: var(--brown);
+  box-shadow: 0 0 0 3px rgba(59,28,28,.09);
+}
+#adminInput {
+  width: 100%;
+}
+
+.sort-group {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.sort-btn {
+  padding: .7rem 1.1rem;
+  font-family: 'Lora', serif;
+  font-size: .9rem;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background .15s;
+  white-space: nowrap;
+}
+.sort-btn:first-child { border-right: 1px solid var(--border); }
+.sort-btn.active,
+.sort-btn:hover { background: var(--tab-active); }
+
+#admin-btn {
+  padding: .7rem 1.1rem;
+  font-family: 'Lora', serif;
+  font-size: .9rem;
+  color: var(--text);
+  background: var(--tab-active);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  white-space: nowrap;
+}
+
+.book-form {
+  gap: 2px;
+}
+
+.add-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── Empty state ────────────────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  color: var(--muted);
+  font-size: .975rem;
+}
+
+/* ── Book grid ──────────────────────────────────────────────────── */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.book-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+  cursor: pointer;
+}
+.book-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(59,28,28,.14);
+}
+
+.book-cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  background: var(--tab-active);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.book-info { padding: 1rem; }
+.book-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  margin-bottom: .25rem;
+}
+.book-author { font-size: .85rem; color: var(--muted); }
+.book-stars { margin-top: .5rem; color: var(--gold); font-size: .85rem; }
+
+/* ── Modal overlay ──────────────────────────────────────────────── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(44,24,16,.35);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn .2s ease;
+}
+.overlay.open { display: flex; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Auth card ──────────────────────────────────────────────────── */
+.auth-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 2.5rem 2.75rem;
+  width: min(460px, calc(100vw - 2rem));
+  box-shadow: 0 20px 60px rgba(44,24,16,.22);
+  animation: slideUp .22s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+/* Tab toggle */
+.tab-row {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+  background: var(--tab-active);
+}
+
+.tab {
+  flex: 1;
+  padding: .65rem 1rem;
+  font-family: 'Lora', serif;
+  font-size: .95rem;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 7px;
+  transition: background .15s, color .15s;
+}
+.tab.active {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(59,28,28,.08);
+}
+
+/* Fields */
+.field { margin-bottom: 1.1rem; }
+.field label {
+  display: block;
+  font-size: .9rem;
+  color: var(--text);
+  margin-bottom: .4rem;
+}
+.field input {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Lora', serif;
+  font-size: .95rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+}
+.field input:focus {
+  border-color: var(--brown);
+  box-shadow: 0 0 0 3px rgba(59,28,28,.09);
+}
+
+.btn-full {
+  width: 100%;
+  background: var(--brown);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: .85rem 1rem;
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: .35rem;
+  transition: background .18s;
+}
+.btn-full:hover { background: var(--brown-mid); }
+
+/* Hidden panel */
+.auth-panel { display: none; }
+.auth-panel.visible { display: block; }
+
+.book-modal {
+  background: var(--bg, #fff);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 480px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.book-modal img {
+  width: 140px;
+  border-radius: 8px;
+  object-fit: cover;
+  align-self: center;
+}
+
+.book-modal .modal-cover-placeholder {
+  font-size: 5rem;
+  text-align: center;
+}
+
+.book-modal h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.book-modal .modal-author {
+  color: #888;
+  margin: 0;
+}
+
+.book-modal .modal-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.book-modal .modal-stars {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+}
+
+.book-modal .modal-stars span {
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.book-modal .modal-stars span:hover {
+  transform: scale(1.2);
+}
+
+.book-modal .btn-close {
+  align-self: flex-end;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* ── Profile/Admin card layout fix ─────────────────────────────── */
+
+#savedBooks,
+#recentRatings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#savedBooks .book-card,
+#recentRatings .book-card {
+  text-align: left;
+}
+
+#savedBooks .book-cover,
+#recentRatings .book-cover {
+  height: 260px;
+  aspect-ratio: auto;
+}
+
+#savedBooks .btn-full,
+#recentRatings .btn-full {
+  margin-top: 1rem;
+}
+
+/* ── Modal polish ─────────────────────────────────────────────── */
+
+.book-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(44, 24, 16, 0.25);
+}
+
+.book-modal h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.book-modal .modal-author {
+  text-align: center;
+  color: var(--muted);
+}
+
+.book-modal .modal-meta {
+  justify-content: center;
+  color: var(--muted);
+}
+
+.book-modal input[type="number"] {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Lora', serif;
+}
+
+/* ── Better nav spacing ───────────────────────────────────────── */
+
+.nav-actions,
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--brown);
+  border: 1px solid var(--brown);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: var(--tab-active);
+}
+
+/* ── Better forms ─────────────────────────────────────────────── */
+
+.book-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .75rem;
+  width: min(900px, 100%);
+}
+
+.book-form input {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: 'Lora', serif;
+  color: var(--text);
+}
+
+/* ── Select styling ───────────────────────────────────────────── */
+
+select {
+  margin-top: 1rem;
+  padding: .7rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: 'Lora', serif;
+  color: var(--text);
+}
+
+/* ── Mobile polish ────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  nav {
+    padding: 0 1rem;
+  }
+
+  .hero {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+
+  .book-grid,
+  #savedBooks,
+  #recentRatings {
+    grid-template-columns: 1fr;
+    padding-inline: 1rem;
+  }
+
+  .toolbar {
+    padding-inline: 1rem;
+  }
+
+  .sort-group {
+    width: 100%;
+  }
+
+  .sort-btn {
+    flex: 1;
+  }
+}
+
+.placeholder-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tab-active);
+}
+
+.placeholder-cover img {
+  width: 70%;
+  opacity: 0.9;
+  object-fit: contain;
+}
+
+.profile-section {
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.profile-section h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.placeholder-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tab-active);
+}
+
+.placeholder-cover img {
+  width: 70%;
+  height: auto;
+  object-fit: contain;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--brown);
+  border: 1px solid var(--brown);
+  border-radius: 8px;
+  padding: .55rem 1.35rem;
+  font-family: 'Lora', serif;
+  font-size: .95rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: var(--tab-active);
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-section select {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  min-width: 220px;
+  text-align: center;
+}
+
+.profile-sort {
+  margin: 1rem auto 1.5rem;
+  width: fit-content;
+}
+
+.profile-sort .sort-btn:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.theme-light {
+  --bg: #f4ece3;
+  --surface: #faf6f1;
+  --border: #e2d8cc;
+
+  --brown: #3b1c1c;
+  --brown-mid: #5c3030;
+
+  --gold: #b8922a;
+
+  --text: #2c1810;
+  --muted: #7a6858;
+
+  --tab-active: #ede5db;
+}
+
+.theme-ocean {
+  --bg: #e8f4f6;
+  --surface: #fafdff;
+  --border: #cfe3e8;
+
+  --brown: #2d5d70;
+  --brown-mid: #234b59;
+
+  --gold: #67a9c0;
+
+  --text: #173642;
+  --muted: #5f7a84;
+
+  --tab-active: #dcecef;
+}
+
+.theme-nature {
+  --bg: #f3f8f1;
+  --surface: #fbfdf9;
+  --border: #dce8d7;
+
+  --brown: #6a8f5b;
+  --brown-mid: #567547;
+
+  --gold: #9bbf7a;
+
+  --text: #2d3a2f;
+  --muted: #788678;
+
+  --tab-active: #e7f0e2;
+}
+
+/* ── Dynamic logo ───────────────────── */
+
+.theme-dark .site-logo {
+  content: url("./images/BokDags-dark.jpg");
+}
+
+.site-logo {
+  border-radius: 8px;
+}
+
+/* ── Theme buttons ───────────────────── */
+
+.theme-buttons,
+.hero .change-btn {
+  margin: 0.35rem;
+}
+
+.change-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.3rem;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(44, 24, 16, 0.12);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.change-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(44, 24, 16, 0.18);
+}
+
+#themeLight {
+  background: linear-gradient(135deg, #f4ece3, #c8a66a);
+  color: #3b1c1c;
+}
+
+#themeOcean {
+  background: linear-gradient(135deg, #dff5f7, #2d8ca3);
+  color: #12343b;
+}
+
+#themeNature {
+  background: linear-gradient(135deg, #eef8e8, #7ba05b);
+  color: #28402c;
+}
+
+/* ── Add button ───────────────────── */
+
+.add-btn {
+  background: var(--brown);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.4rem;
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 6px 18px rgba(44, 24, 16, 0.12);
+}
+
+.add-btn:hover {
+  background: var(--brown-mid);
+  transform: translateY(-2px);
+}
+
+/* ── File upload button ───────────────────── */
+
+#adminCover {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-family: 'Lora', serif;
+  color: var(--text);
+  cursor: pointer;
+}
+
+#adminCover::file-selector-button {
+  background: var(--brown);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  margin-right: 1rem;
+  font-family: 'Lora', serif;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+#adminCover::file-selector-button:hover {
+  background: var(--brown-mid);
+}
+
+.book-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 1rem;
+  width: min(720px, 100%);
+  margin: 0 auto;
+}
+
+.book-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+#adminCover {
+  grid-column: span 2;
+}
+
+@media (max-width: 700px) {
+  .book-form {
+    grid-template-columns: 1fr;
+  }
+
+  #adminCover {
+    grid-column: span 1;
+  }
+}
+
+#savedBooks,
+#recentRatings,
+.profile-grid {
+  width: 100%;
+  max-width: 1100px;
+  margin: 1.5rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+#savedBooks .book-card,
+#recentRatings .book-card {
+  width: 100%;
+}
+
+#savedBooks .book-cover,
+#recentRatings .book-cover {
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  background: var(--tab-active);
+  padding: 0.75rem;
+}
+
+/* ── Footer ───────────────────── */
+
+.site-footer {
+  margin-top: 4rem;
+  padding: 1.5rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.site-footer p {
+  font-family: 'Lora', serif;
+  color: var(--muted);
+  font-size: 0.95rem;
+}

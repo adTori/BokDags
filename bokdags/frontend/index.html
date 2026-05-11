@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BokDags</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a href="./index.html">
+      <img src="BokDags.png" alt="BokDags" width="80px">
+    </a>
+    
+    <button class="btn-primary" id="openLogin">Logga in</button>
+  </nav>
+
+  <!-- ── Main catalog ── -->
+  <main>
+    <section class="hero">
+      <img src="BokDags.png" alt="" width="160px">
+      <h1>Böcker värda att läsa</h1>
+      <p>En noggrant utvald katalog. Logga in för att betygsätta dina favoriter.</p>
+    </section>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Sök titel eller författare…" />
+      </div>
+
+      <div class="sort-group">
+        <button class="sort-btn active" id="sortNew" onclick="setSort('new')">Nyast</button>
+        <button class="sort-btn" id="sortTop" onclick="setSort('top')">Högst betyg</button>
+      </div>
+    </div>
+
+    <div class="book-grid" id="bookGrid"></div>
+  </main>
+
+  <!-- ── Login / Register modal ── -->
+  <div class="overlay" id="overlay" onclick="if(event.target===this) this.classList.remove('open')">
+    <div class="auth-card">
+      <h2><img src="BokDags.png" alt="" width="30%"></h2>
+
+      <div class="tab-row">
+        <button class="tab active" id="tabLogin" onclick="switchTab('login')">Logga in</button>
+        <button class="tab" id="tabRegister" onclick="switchTab('register')">Skapa konto</button>
+      </div>
+
+      <!-- Login panel -->
+      <div class="auth-panel visible" id="panelLogin">
+        <div class="field">
+          <label for="loginEmail">E-post</label>
+          <input type="email" id="loginEmail" autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Lösenord</label>
+          <input type="password" id="loginPassword" autocomplete="current-password" />
+        </div>
+
+        <button class="btn-full" onclick="handleLogin()">Logga in</button>
+      </div>
+
+      <!-- Register panel -->
+      <div class="auth-panel" id="panelRegister">
+        <div class="field">
+          <label for="regName">Namn</label>
+          <input type="text" id="regName" autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="regEmail">E-post</label>
+          <input type="email" id="regEmail" autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="regPassword">Lösenord</label>
+          <input type="password" id="regPassword" autocomplete="new-password" />
+        </div>
+
+        <button class="btn-full" onclick="handleRegister()">Skapa konto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Bokdetaljer modal ── -->
+  <div class="overlay" id="bookOverlay" onclick="if(event.target===this) closeBookModal()">
+    <div class="book-modal" id="bookModal"></div>
+  </div>
+<br><br><br><br>
+<footer class="site-footer">
+  <p>© Victoria Friberg 2026</p>
+</footer>
+</body>
+</html>
