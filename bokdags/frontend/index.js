@@ -197,17 +197,8 @@ function setupNav() {
   const navBtn = document.getElementById("navBtn");
   const openLogin = document.getElementById("openLogin");
 
-  if (openLogin) {
-    openLogin.style.display = "inline-block";
-    openLogin.textContent = currentUser ? "Logga ut" : "Logga in";
-
-    openLogin.onclick = () => {
-      if (currentUser) {
-        logout();
-      } else {
-        document.getElementById("overlay")?.classList.add("open");
-      }
-    };
+  if (openLogin && currentUser) {
+    openLogin.style.display = "none";
   }
 
   if (navBtn) {
@@ -358,16 +349,33 @@ function openBookModal(documentId) {
   const coverUrl = getCoverUrl(book);
   const avg = getAverageRating(book);
 
+  const coverHTML = coverUrl
+    ? `<img src="${coverUrl}" alt="${book.title}" class="modal-cover">`
+    : `<div class="modal-cover-placeholder">
+         <img src="BokDags.png" alt="BokDags">
+       </div>`;
+
+  const authHTML = currentUser
+    ? `
+      <button class="btn-full" onclick="saveBook('${book.documentId}')">
+        Spara i Att läsa
+      </button>
+
+      <div class="field">
+        <label for="rating-${book.documentId}">Ditt betyg 1-10</label>
+        <input id="rating-${book.documentId}" type="number" min="1" max="10" value="5">
+      </div>
+
+      <button class="btn-full" onclick="rateBook('${book.documentId}')">
+        Betygsätt
+      </button>
+    `
+    : `<p>Logga in för att spara och betygsätta.</p>`;
+
   modal.innerHTML = `
     <button class="btn-close" onclick="closeBookModal()">Stäng</button>
 
-    ${
-      coverUrl
-        ? `<img src="${coverUrl}" alt="${book.title}" class="modal-cover">`
-        : `<div class="modal-cover-placeholder">
-             <img src="BokDags.png" alt="BokDags">
-           </div>`
-    }
+    ${coverHTML}
 
     <h2>${book.title}</h2>
     <p class="modal-author">${book.author}</p>
@@ -379,24 +387,7 @@ function openBookModal(documentId) {
 
     <p><strong>Snittbetyg:</strong> ${avg}${avg !== "Inget betyg" ? "/10" : ""}</p>
 
-    ${
-      currentUser
-        ? `
-          <button class="btn-full" onclick="saveBook('${book.documentId}')">
-            Spara i Att läsa
-          </button>
-
-          <div class="field">
-            <label for="rating-${book.documentId}">Ditt betyg 1-10</label>
-            <input id="rating-${book.documentId}" type="number" min="1" max="10" value="5">
-          </div>
-
-          <button class="btn-full" onclick="rateBook('${book.documentId}')">
-            Betygsätt
-          </button>
-        `
-        : `<p>Logga in för att spara och betygsätta.</p>`
-    }
+    ${authHTML}
   `;
 
   overlay.classList.add("open");
