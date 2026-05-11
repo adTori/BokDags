@@ -197,10 +197,39 @@ function setupNav() {
   const navBtn = document.getElementById("navBtn");
   const openLogin = document.getElementById("openLogin");
 
-  if (openLogin && currentUser) {
-    openLogin.style.display = "none";
+  // Säkerställ korrekt currentUser
+  try {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      currentUser = JSON.parse(storedUser);
+    } else {
+      currentUser = null;
+    }
+  } catch {
+    currentUser = null;
   }
 
+  // LOGIN-KNAPP
+  if (openLogin) {
+    openLogin.style.display = "inline-flex";
+
+    if (currentUser) {
+      openLogin.textContent = "Logga ut";
+
+      openLogin.onclick = () => {
+        logout();
+      };
+    } else {
+      openLogin.textContent = "Logga in";
+
+      openLogin.onclick = () => {
+        document.getElementById("overlay")?.classList.add("open");
+      };
+    }
+  }
+
+  // NAVBTN (home/profile/admin)
   if (navBtn) {
     if (currentUser) {
       navBtn.textContent = "Logga ut";
@@ -208,7 +237,7 @@ function setupNav() {
     } else {
       navBtn.textContent = "Logga in";
       navBtn.onclick = () => {
-        window.location.href = "index.html";
+        document.getElementById("overlay")?.classList.add("open");
       };
     }
   }
@@ -846,3 +875,12 @@ function showAdminLink() {
 
   adminLink.style.display = currentUser?.admin === true ? "inline-block" : "none";
 }
+
+window.openBookModal = openBookModal;
+window.closeBookModal = closeBookModal;
+window.handleLogin = handleLogin;
+window.handleRegister = handleRegister;
+window.switchTab = switchTab;
+window.logout = logout;
+window.saveBook = saveBook;
+window.rateBook = rateBook;
