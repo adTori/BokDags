@@ -133,7 +133,7 @@ bokdags/
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/bokdags.git
+git clone https://github.com/adtori/bokdags.git
 ```
 
 ---
