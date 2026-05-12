@@ -141,7 +141,7 @@ bokdags/
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/adtori/bokdags.git
+git clone https://github.com/adtori/bok-dags-app.git
 ```
 
 ---
