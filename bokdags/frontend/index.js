@@ -3,7 +3,7 @@ const API = `${API_URL}/api`;
 
 async function loadTheme() {
   try {
-    const res = await fetch(`${API}/site-setting?populate=*`);
+    const res = await fetch(`${API}/sitesetting?populate=*`);
     const data = await res.json();
 
     console.log("THEME STATUS:", res.status);
