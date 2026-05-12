@@ -23,7 +23,6 @@ async function loadTheme() {
     );
 
     document.body.classList.add(`theme-${theme}`);
-    console.log("ACTIVE THEME:", theme);
   } catch (error) {
     console.error("Could not load theme:", error);
     document.body.classList.add("theme-light");
