@@ -1,6 +1,35 @@
 const API_URL = "https://artistic-hero-019f59ea0e.strapiapp.com";
 const API = `${API_URL}/api`;
 
+async function loadTheme() {
+  try {
+    const res = await fetch(`${API}/site-setting?populate=*`);
+    const data = await res.json();
+
+    console.log("THEME STATUS:", res.status);
+    console.log("THEME DATA:", data);
+
+    if (!res.ok) {
+      document.body.classList.add("theme-light");
+      return;
+    }
+
+    const theme = data.data?.theme || "light";
+
+    document.body.classList.remove(
+      "theme-light",
+      "theme-ocean",
+      "theme-nature"
+    );
+
+    document.body.classList.add(`theme-${theme}`);
+    console.log("ACTIVE THEME:", theme);
+  } catch (error) {
+    console.error("Could not load theme:", error);
+    document.body.classList.add("theme-light");
+  }
+}
+
 let books = [];
 let savedBooks = [];
 let userRatings = [];
@@ -24,7 +53,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupSearch();
   setupProfileSort();
   setupAdmin();
-  applySavedTheme();
+
+  await loadTheme();
 
   renderUsername();
 
@@ -737,9 +767,9 @@ function setupProfileSort() {
 function setupAdmin() {
   document.getElementById("addBookBtn")?.addEventListener("click", addBookFromAdmin);
 
-  document.getElementById("themeLight")?.addEventListener("click", () => setTheme("light"));
-  document.getElementById("themeOcean")?.addEventListener("click", () => setTheme("ocean"));
-  document.getElementById("themeNature")?.addEventListener("click", () => setTheme("nature"));
+  // document.getElementById("themeLight")?.addEventListener("click", () => setTheme("light"));
+  // document.getElementById("themeOcean")?.addEventListener("click", () => setTheme("ocean"));
+  // document.getElementById("themeNature")?.addEventListener("click", () => setTheme("nature"));
 }
 
 async function addBookFromAdmin() {
@@ -820,30 +850,30 @@ async function addBookFromAdmin() {
 // ─────────────────────────────
 // THEME
 // ─────────────────────────────
-function setTheme(themeName) {
-  document.body.classList.remove("theme-light", "theme-ocean", "theme-nature");
-  document.body.classList.add(`theme-${themeName}`);
+// function setTheme(themeName) {
+//   document.body.classList.remove("theme-light", "theme-ocean", "theme-nature");
+//   document.body.classList.add(`theme-${themeName}`);
 
-  localStorage.setItem("theme", themeName);
-}
+//   localStorage.setItem("theme", themeName);
+// }
 
-function applySavedTheme() {
-  const theme = localStorage.getItem("theme");
+// function applySavedTheme() {
+//   const theme = localStorage.getItem("theme");
 
-  if (theme) {
-    document.body.classList.add(`theme-${theme}`);
-  }
-}
+//   if (theme) {
+//     document.body.classList.add(`theme-${theme}`);
+//   }
+// }
 
-function updateLogoForTheme(themeName) {
-  document.querySelectorAll(".site-logo").forEach((logo) => {
-    if (themeName === "dark") {
-      logo.src = "BokDags-dark.jpg";
-    } else {
-      logo.src = "BokDags.png";
-    }
-  });
-}
+// function updateLogoForTheme(themeName) {
+//   document.querySelectorAll(".site-logo").forEach((logo) => {
+//     if (themeName === "dark") {
+//       logo.src = "BokDags-dark.jpg";
+//     } else {
+//       logo.src = "BokDags.png";
+//     }
+//   });
+// }
 
 function setProfileSavedSort(sortType, button) {
   profileSavedSort = sortType;

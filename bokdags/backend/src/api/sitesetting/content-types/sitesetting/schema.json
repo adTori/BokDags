@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "sitesettings",
+  "info": {
+    "singularName": "sitesetting",
+    "pluralName": "sitesettings",
+    "displayName": "sitesetting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "ocean",
+        "nature"
+      ]
+    }
+  }
+}

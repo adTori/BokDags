@@ -573,6 +573,34 @@ export interface ApiSavedBookSavedBook extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSitesettingSitesetting extends Struct.SingleTypeSchema {
+  collectionName: 'sitesettings';
+  info: {
+    displayName: 'sitesetting';
+    pluralName: 'sitesettings';
+    singularName: 'sitesetting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sitesetting.sitesetting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    theme: Schema.Attribute.Enumeration<['light', 'ocean', 'nature']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiThemeTheme extends Struct.CollectionTypeSchema {
   collectionName: 'themes';
   info: {
@@ -1116,6 +1144,7 @@ declare module '@strapi/strapi' {
       'api::book.book': ApiBookBook;
       'api::rating.rating': ApiRatingRating;
       'api::saved-book.saved-book': ApiSavedBookSavedBook;
+      'api::sitesetting.sitesetting': ApiSitesettingSitesetting;
       'api::theme.theme': ApiThemeTheme;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

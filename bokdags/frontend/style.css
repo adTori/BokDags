@@ -948,3 +948,34 @@ select {
 .book-modal .btn-full {
   border-radius: 8px;
 }
+
+/* LIGHT */
+body.theme-light {
+  --bg: #f7f1ea;
+  --text: #2a2118;
+  --accent: #8b5e34;
+}
+
+/* OCEAN */
+body.theme-ocean {
+  --bg: #dff6ff;
+  --text: #12343b;
+  --accent: #0e7490;
+}
+
+/* NATURE */
+body.theme-nature {
+  --bg: #eef7ed;
+  --text: #1f3d2b;
+  --accent: #4d7c0f;
+}
+
+/* använd variablerna */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+button {
+  background: var(--accent);
+}
