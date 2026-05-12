@@ -191,7 +191,7 @@ JWT_SECRET=
 # 📸 Screenshots
 
 <img width="1904" height="999" alt="Skärmbild 2026-05-12 125706" src="https://github.com/user-attachments/assets/4ac36a9c-a29e-49d8-a28d-c2d31a40ac42" />
-<img width="1905" height="998" alt="Skärmbild 2026-05-12 124901" src="https://github.com/user-attachments/assets/49cbc9c4-000e-4b6d-b55d-4a7c83fd2a58" />
+<img width="1906" height="998" alt="Skärmbild 2026-05-12 130120" src="https://github.com/user-attachments/assets/19855d35-627a-41a4-8574-7aa0ce172ef9" />
 <img width="1904" height="994" alt="Skärmbild 2026-05-09 141653" src="https://github.com/user-attachments/assets/afdcd819-fd22-4f73-b288-8327a2464df4" />
 <img width="1902" height="994" alt="Skärmbild 2026-05-09 141714" src="https://github.com/user-attachments/assets/d660e480-7235-4a41-9ee0-a32d043bf9dc" />
 <img width="1900" height="994" alt="Skärmbild 2026-05-09 141836" src="https://github.com/user-attachments/assets/99760d62-b8a3-4a9a-9cde-7fce100ee028" />
