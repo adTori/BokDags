@@ -3,16 +3,20 @@
 BokDags is a modern book platform built with HTML, CSS, JavaScript, and Strapi CMS.
 
 Users can:
-
 * create accounts and log in
 * browse books
 * save books to their profile
+* delete saved books in their profile
 * rate books
 * view average ratings
 
 Admin can:
-* switch between different themes
 * upload books
+* delete books
+
+Super admin can (in Strapi):
+* change theme
+* and more...
 
 The project is deployed with:
 
