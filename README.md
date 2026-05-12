@@ -76,13 +76,14 @@ Three different themes:
 * Ocean
 * Nature
 
-Themes can be changed by the admin.
+Themes can be changed by the super admin.
 
 ## 🛠 Admin Features
 
 Admins can:
 
 * add books
+* delete books
 * upload book covers
 * manage content through Strapi CMS
 
