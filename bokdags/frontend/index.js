@@ -350,7 +350,8 @@ function renderBooks() {
 
   if (!bookGrid) return;
 
-  const searchValue = document.getElementById("searchInput")?.value.toLowerCase() || "";
+  const searchValue =
+    document.getElementById("searchInput")?.value.toLowerCase() || "";
 
   let filteredBooks = books.filter((book) => {
     const title = book.title?.toLowerCase() || "";
@@ -359,7 +360,9 @@ function renderBooks() {
   });
 
   if (currentSort === "new") {
-    filteredBooks.sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate));
+    filteredBooks.sort(
+      (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
+    );
   }
 
   if (currentSort === "top") {
@@ -399,11 +402,45 @@ function renderBooks() {
         <p>${book.pages || "?"} sidor</p>
         <p>Utgiven: ${book.publishedDate || "Okänt"}</p>
         <p class="book-stars">★ ${avg}${avg !== "Inget betyg" ? "/10" : ""}</p>
+
+        ${
+          currentUser?.admin === true
+            ? `<button class="btn-full" onclick="event.stopPropagation(); deleteBook('${book.documentId}')">
+                 Radera bok
+               </button>`
+            : ""
+        }
       </div>
     `;
 
     bookGrid.appendChild(card);
   });
+}
+
+async function deleteBook(documentId) {
+  if (!currentUser?.admin || !token) {
+    showError("Du måste vara admin för att radera böcker.");
+    return;
+  }
+
+  const confirmDelete = confirm("Är du säker på att du vill radera boken?");
+  if (!confirmDelete) return;
+
+  const res = await fetch(`${API}/books/${documentId}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  });
+
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    console.log("DELETE BOOK ERROR:", data);
+    showError("Kunde inte radera boken.");
+    return;
+  }
+
+  alert("Boken raderades.");
+  await fetchBooks();
 }
 
 // ─────────────────────────────
@@ -925,3 +962,4 @@ window.switchTab = switchTab;
 window.logout = logout;
 window.saveBook = saveBook;
 window.rateBook = rateBook;
+window.deleteBook = deleteBook;
